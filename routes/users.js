@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const {
+  getUsersNews,
+  addNews,
+  changeUserInfo,
+} = require('../controllers/usersController');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/user', getUsersNews);
+router.post('/user/:userId', addNews);
+router.put('/user/:userId', changeUserInfo);
 
 module.exports = router;

@@ -9,6 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       login: {
+        allowNull: false,
+        unique: true, 
         type: Sequelize.STRING
       },
       password: {
@@ -28,6 +30,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       updatedAt: {
+        defaultValue: Sequelize.NOW,
         allowNull: false,
         type: Sequelize.DATE
       }

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const {
+  getAllNews,
+} = require('../controllers/newsController');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', getAllNews);
+
 
 module.exports = router;

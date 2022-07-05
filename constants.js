@@ -1,0 +1,12 @@
+module.exports = {
+  RESPONSE_STATUSES: {
+    OK: 200,
+    CREATE: 201,
+    NO_CONTENT: 204,
+    BAD_REQUEST: 400,
+    NOT_FOUND: 404,
+    INTERVAL_SERVER_ERROR: 500,
+    CONFLICT: 409,
+    UNAUTHORIZED: 401,
+  },
+};
