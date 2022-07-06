@@ -6,8 +6,13 @@ module.exports = {
   getUsersNews(req, res) {
     return News
       .findAll({
+        include: [{
+          model: News,
+          as: 'news'
+        }],
         order: [
-          ['id', 'ASC'],
+          ['createdAt', 'DESC'],
+          [{ model: News, as: 'news' }, 'createdAt', 'DESC'],
         ],
       })
       .then((userNews) => res.status(RESPONSE_STATUSES.OK).send(userNews))
@@ -17,11 +22,29 @@ module.exports = {
   addNews(req, res) {
     return News
       .create({
-        content: req.body.description,
-        tag: req.body.description,
-        title: req.body.description,
+        content: req.body.content,
+        tag: req.body.tag,
+        title: req.body.title,
+      }, {
+        include: [{
+          model: News,
+          as: 'news'
+        }],
       })
       .then((addNews) => res.status(RESPONSE_STATUSES.CREATE).send(addNews))
+      .catch((error) => res.status(RESPONSE_STATUSES.BAD_REQUEST).send(error));
+  },
+
+  addUser(req, res) {
+    return News
+      .create({
+        login: req.body.login,
+        password: req.body.password,
+        email: req.body.email,
+        name: req.body.name,
+        picture: req.body.picture,
+      })
+      .then((addUser) => res.status(RESPONSE_STATUSES.CREATE).send(addUser))
       .catch((error) => res.status(RESPONSE_STATUSES.BAD_REQUEST).send(error));
   },
 

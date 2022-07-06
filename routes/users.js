@@ -4,10 +4,12 @@ const {
   getUsersNews,
   addNews,
   changeUserInfo,
+  addUser,
 } = require('../controllers/usersController');
 
-router.get('/user', getUsersNews);
-router.post('/user/:userId', addNews);
-router.put('/user/:userId', changeUserInfo);
+router.post('/api/user', addUser);
+router.get('/api/user', getUsersNews);
+router.post('/api/user/:userId', addNews);
+router.put('/api/user/:userId', changeUserInfo);
 
 module.exports = router;

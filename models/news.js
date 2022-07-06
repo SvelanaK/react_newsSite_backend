@@ -11,7 +11,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   News.init({
-    userId: DataTypes.INTEGER,
+    userId: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+      unique: true,
+    },
     content: DataTypes.STRING,
     tag: DataTypes.STRING,
     title: DataTypes.STRING,

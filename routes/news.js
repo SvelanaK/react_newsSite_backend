@@ -4,7 +4,7 @@ const {
   getAllNews,
 } = require('../controllers/newsController');
 
-router.get('/', getAllNews);
+router.get('/api/news', getAllNews);
 
 
 module.exports = router;
