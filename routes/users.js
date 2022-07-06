@@ -1,15 +1,12 @@
 const express = require('express');
+
 const router = express.Router();
 const {
   getUsersNews,
-  addNews,
-  changeUserInfo,
-  addUser,
-} = require('../controllers/usersController');
+  updateUserInfo,
+} = require('../controllers/users/index');
 
-router.post('/api/user', addUser);
-router.get('/api/user', getUsersNews);
-router.post('/api/user/:userId', addNews);
-router.put('/api/user/:userId', changeUserInfo);
+router.get('/', getUsersNews);
+router.put('/:userId', updateUserInfo);
 
 module.exports = router;

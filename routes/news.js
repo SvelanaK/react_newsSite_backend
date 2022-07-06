@@ -1,10 +1,12 @@
 const express = require('express');
+
 const router = express.Router();
 const {
   getAllNews,
-} = require('../controllers/newsController');
+  addNews,
+} = require('../controllers/news/index');
 
-router.get('/api/news', getAllNews);
-
+router.get('/', getAllNews);
+router.post('/:userId', addNews);
 
 module.exports = router;
