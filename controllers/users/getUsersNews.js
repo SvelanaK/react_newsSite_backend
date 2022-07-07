@@ -1,4 +1,4 @@
-const { News } = require('../../models');
+const { News, User } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
 
 module.exports = {
@@ -7,8 +7,8 @@ module.exports = {
       const userNews = await News
         .findAll({
           include: [{
-            model: News,
-            as: 'news',
+            model: User,
+            as: 'user',
           }],
           order: [
             ['createdAt', 'DESC'],
@@ -16,10 +16,12 @@ module.exports = {
           ],
         });
       return res
-        .status(RESPONSE_STATUSES.OK).send(userNews);
+        .status(RESPONSE_STATUSES.OK)
+        .send(userNews);
     } catch (error) {
       return res
-        .status(RESPONSE_STATUSES.BAD_REQUEST).send(error);
+        .status(RESPONSE_STATUSES.BAD_REQUEST)
+        .send(error);
     }
   },
 };

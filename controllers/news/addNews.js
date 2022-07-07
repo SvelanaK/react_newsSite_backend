@@ -16,10 +16,12 @@ module.exports = {
           }],
         });
       return res
-        .status(RESPONSE_STATUSES.CREATED).send(addNews);
+        .status(RESPONSE_STATUSES.CREATED)
+        .send(addNews);
     } catch (error) {
       return res
-        .status(RESPONSE_STATUSES.BAD_REQUEST).send(error);
+        .status(RESPONSE_STATUSES.BAD_REQUEST)
+        .send(error);
     }
   },
 };

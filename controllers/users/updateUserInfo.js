@@ -4,7 +4,7 @@ const { RESPONSE_STATUSES } = require('../../constants');
 module.exports = {
   async updateUserInfo(req, res) {
     try {
-      const { name, picture } = req.body;
+      const { firstName, lastName, picture } = req.body;
       const findUser = await User.findByPk(req.params.userId);
       if (!findUser) {
         return res
@@ -12,14 +12,16 @@ module.exports = {
       }
       const updateUserInfo = User
         .update(
-          { name, picture },
+          { firstName, lastName, picture },
           { where: { useId: req.params.userId } },
         );
       return res
-        .status(RESPONSE_STATUSES.OK).send(updateUserInfo);
+        .status(RESPONSE_STATUSES.OK)
+        .send(updateUserInfo);
     } catch (error) {
       return res
-        .status(RESPONSE_STATUSES.BAD_REQUEST).send(error);
+        .status(RESPONSE_STATUSES.BAD_REQUEST)
+        .send(error);
     }
   },
 };

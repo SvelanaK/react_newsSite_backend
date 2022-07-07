@@ -12,10 +12,12 @@ module.exports = {
           }],
         });
       return res
-        .status(RESPONSE_STATUSES.OK).send(allNews);
+        .status(RESPONSE_STATUSES.OK)
+        .send(allNews);
     } catch (error) {
       return res
-        .status(RESPONSE_STATUSES.BAD_REQUEST).send(error);
+        .status(RESPONSE_STATUSES.BAD_REQUEST)
+        .send(error);
     }
   },
 };
