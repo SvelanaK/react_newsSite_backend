@@ -3,21 +3,23 @@ const { RESPONSE_STATUSES } = require('../../constants');
 
 module.exports = {
   async updateUserInfo(req, res) {
-    const { name, picture } = req.body;
-    return User
-      .findByPk(req.params.userId)
-      .then((response) => {
-        if (response) {
-          User
-            .update(
-              { name, picture },
-              { where: { useId: req.params.userId } },
-            )
-            .then(() => res.status(RESPONSE_STATUSES.OK).send());
-        } else {
-          throw new Error();
-        }
-      })
-      .catch((error) => res.status(RESPONSE_STATUSES.BAD_REQUEST).send(error));
+    try {
+      const { name, picture } = req.body;
+      const findUser = await User.findByPk(req.params.userId);
+      if (!findUser) {
+        return res
+          .status(RESPONSE_STATUSES.NOT_FOUND).send('User not found');
+      }
+      const updateUserInfo = User
+        .update(
+          { name, picture },
+          { where: { useId: req.params.userId } },
+        );
+      return res
+        .status(RESPONSE_STATUSES.OK).send(updateUserInfo);
+    } catch (error) {
+      return res
+        .status(RESPONSE_STATUSES.BAD_REQUEST).send(error);
+    }
   },
 };
