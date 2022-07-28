@@ -1,18 +1,18 @@
 const express = require('express');
 const {
-  registrationUser,
-  loginUser,
-  logoutUser,
-  refreshUser,
-  whoAmIUser,
+  registration,
+  login,
+  logout,
+  refresh,
+  whoAmI,
 } = require('../../controllers/auth/index');
 
 const router = express.Router();
 
-router.post('/login', loginUser);
-router.post('/logout', logoutUser);
-router.post('/registration', registrationUser);
-router.post('/refresh', refreshUser);
-router.post('/whoAmI', whoAmIUser);
+router.post('/login', login);
+router.post('/logout', logout);
+router.post('/registration', registration);
+router.post('/refresh', refresh);
+router.post('/whoAmI', whoAmI);
 
 module.exports = router;

@@ -1,13 +1,13 @@
-const { registrationUser } = require('./registrationUser');
-const { loginUser } = require('./loginUser');
-const { logoutUser } = require('./logoutUser');
-const { refreshUser } = require('./refreshUser');
-const { whoAmIUser } = require('./whoAmIUser');
+const { registration } = require('./registration');
+const { login } = require('./login');
+const { logout } = require('./logout');
+const { refresh } = require('./refresh');
+const { whoAmI } = require('./whoAmI');
 
 module.exports = {
-  registrationUser,
-  loginUser,
-  logoutUser,
-  refreshUser,
-  whoAmIUser,
+  registration,
+  login,
+  logout,
+  refresh,
+  whoAmI,
 };

@@ -2,7 +2,7 @@ const { News, Users } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
 
 module.exports = {
-  async getNewsSuccess(req, res) {
+  async getAllNews(req, res) {
     try {
       const allNews = await News.findAll({
         include: [{
@@ -17,7 +17,7 @@ module.exports = {
     } catch (error) {
       return res
         .status(RESPONSE_STATUSES.BAD_REQUEST)
-        .send(error);
+        .send(error.message);
     }
   },
 };

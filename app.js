@@ -4,6 +4,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
+require('dotenv').config();
+require('./middleware/passport')(passport);
 
 const indexRouter = require('./routes/index');
 const newsRouter = require('./routes/news/news');
@@ -14,6 +17,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(passport.initialize());
 app.use(cors('*'));
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/news', newsRouter);
+app.use('/api/news', passport.authenticate('jwt', { session: false }), newsRouter);
 app.use('/api/auth', authRouter);
 
 app.use((req, res, next) => {
