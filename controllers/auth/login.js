@@ -1,5 +1,4 @@
 const { returnUserAndTokens } = require('./returnUserAndTokens');
-
 const { Users } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
 
@@ -13,14 +12,14 @@ module.exports = {
         },
       } = req;
 
-      if ((login.trim() === '') || (password.trim() === '')) {
+      if (login.trim() === '' || password === '') {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send({ message: 'Missed data' });
       }
 
       const foundUser = await Users.findOne(
-        { where: { login } },
+        { where: { login: login.trim() } },
       );
 
       if (!foundUser) {

@@ -30,7 +30,9 @@ module.exports = {
           },
         });
     } catch (e) {
-      return e.message;
+      return res
+        .status(RESPONSE_STATUSES.BAD_REQUEST)
+        .send(e.message);
     }
   },
 };

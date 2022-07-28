@@ -1,7 +1,6 @@
 const { Op } = require('sequelize');
 
 const { returnUserAndTokens } = require('./returnUserAndTokens');
-
 const { Users } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
 
@@ -19,11 +18,11 @@ module.exports = {
       } = req;
 
       if (
-        (firstName.trim() === '')
-      || (lastName.trim() === '')
-      || (email.trim() === '')
-      || (login.trim() === '')
-      || (password.trim() === '')) {
+        firstName.trim() === ''
+      || lastName.trim() === ''
+      || email.trim() === ''
+      || login.trim() === ''
+      || password === '') {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send({ message: 'Missed data' });
@@ -31,7 +30,7 @@ module.exports = {
 
       const candidate = await Users
         .findOne(
-          { where: { [Op.or]: [{ login }, { email }] } },
+          { where: { [Op.or]: [{ login: login.trim() }, { email: email.trim() }] } },
         );
 
       if (candidate) {
@@ -42,11 +41,11 @@ module.exports = {
 
       const newUser = await Users
         .create({
-          firstName,
-          lastName,
-          email,
-          login,
-          password,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          login: login.trim(),
+          password: password.trim(),
         });
 
       return await returnUserAndTokens(req, res, { user: newUser });

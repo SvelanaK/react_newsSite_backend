@@ -17,10 +17,20 @@ module.exports = {
       const foundUserToken = await Tokens.findOne(
         { where: { refreshToken: cookieRefreshToken } },
       );
+      if (!foundUserToken) {
+        return res
+          .status(RESPONSE_STATUSES.BAD_REQUEST)
+          .send({ message: 'Token not found' });
+      }
 
       const foundUser = await Users.findOne(
         { where: { id: foundUserToken.userId } },
       );
+      if (!foundUser) {
+        return res
+          .status(RESPONSE_STATUSES.BAD_REQUEST)
+          .send({ message: 'User not found' });
+      }
 
       return await returnUserAndTokens(req, res, { user: foundUser });
     } catch (error) {
