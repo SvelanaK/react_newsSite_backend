@@ -17,12 +17,20 @@ module.exports = {
         },
       } = req;
 
+      const payload = {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        login: login.trim(),
+        password,
+      };
+
       if (
-        firstName.trim() === ''
-      || lastName.trim() === ''
-      || email.trim() === ''
-      || login.trim() === ''
-      || password === '') {
+        payload.firstName === ''
+      || payload.lastName === ''
+      || payload.email === ''
+      || payload.login === ''
+      || payload.password === '') {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send({ message: 'Missed data' });
@@ -30,7 +38,7 @@ module.exports = {
 
       const candidate = await Users
         .findOne(
-          { where: { [Op.or]: [{ login: login.trim() }, { email: email.trim() }] } },
+          { where: { [Op.or]: [{ login: payload.login }, { email: payload.email }] } },
         );
 
       if (candidate) {
@@ -40,13 +48,7 @@ module.exports = {
       }
 
       const newUser = await Users
-        .create({
-          firstName: firstName.trim(),
-          lastName: lastName.trim(),
-          email: email.trim(),
-          login: login.trim(),
-          password: password.trim(),
-        });
+        .create(payload);
 
       return await returnUserAndTokens(req, res, { user: newUser });
     } catch (error) {

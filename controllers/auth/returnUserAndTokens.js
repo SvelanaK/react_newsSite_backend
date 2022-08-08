@@ -29,10 +29,10 @@ module.exports = {
             registrationDate: user.createdAt,
           },
         });
-    } catch (e) {
+    } catch (error) {
       return res
         .status(RESPONSE_STATUSES.BAD_REQUEST)
-        .send(e.message);
+        .send(error.message);
     }
   },
 };
