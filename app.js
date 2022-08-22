@@ -11,6 +11,7 @@ require('./middleware/passport')(passport);
 const indexRouter = require('./routes/index');
 const newsRouter = require('./routes/news/news');
 const authRouter = require('./routes/auth/auth');
+const userRouter = require('./routes/user/user');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/news', passport.authenticate('jwt', { session: false }), newsRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
