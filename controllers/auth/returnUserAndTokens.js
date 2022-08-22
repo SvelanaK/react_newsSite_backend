@@ -31,7 +31,7 @@ module.exports = {
         });
     } catch (error) {
       return res
-        .status(RESPONSE_STATUSES.BAD_REQUEST)
+        .status(RESPONSE_STATUSES.INTERNAL_SERVER_ERROR)
         .send(error.message);
     }
   },

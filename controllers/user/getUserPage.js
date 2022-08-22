@@ -5,9 +5,14 @@ module.exports = {
   async getUserPage(req, res) {
     try {
       const { id } = req.params;
-      const foundUser = await Users.findOne(
-        { where: { id } },
-      );
+
+      if (!id) {
+        return res
+          .status(RESPONSE_STATUSES.BAD_REQUEST)
+          .send({ message: 'Id is missing or invalid' });
+      }
+
+      const foundUser = await Users.findOne({ where: { id } });
 
       if (!foundUser) {
         return res
@@ -15,9 +20,7 @@ module.exports = {
           .send({ message: 'User not found' });
       }
 
-      const usersNews = await News.findAll(
-        { where: { userId: id } },
-      );
+      const usersNews = await News.findAll({ where: { userId: id } });
 
       return res
         .status(RESPONSE_STATUSES.OK)
@@ -34,7 +37,7 @@ module.exports = {
         });
     } catch (error) {
       return res
-        .status(RESPONSE_STATUSES.BAD_REQUEST)
+        .status(RESPONSE_STATUSES.INTERNAL_SERVER_ERROR)
         .send(error.message);
     }
   },
