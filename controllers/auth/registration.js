@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 const { returnUserAndTokens } = require('./returnUserAndTokens');
 const { Users } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
+const { ERROR_MESSAGE } = require('../../errorMessages');
 
 module.exports = {
   async registration(req, res) {
@@ -33,7 +34,7 @@ module.exports = {
       || payload.password === '') {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'Missed data' });
+          .send(ERROR_MESSAGE.MISSED_DATA);
       }
 
       const candidate = await Users
@@ -44,7 +45,7 @@ module.exports = {
       if (candidate) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'User already exists' });
+          .send(ERROR_MESSAGE.USER_ALREADY_EXISTS);
       }
 
       const newUser = await Users

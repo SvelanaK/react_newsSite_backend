@@ -1,6 +1,7 @@
 const { returnUserAndTokens } = require('./returnUserAndTokens');
 const { Users, Tokens } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
+const { ERROR_MESSAGE } = require('../../errorMessages');
 
 module.exports = {
   async refresh(req, res) {
@@ -10,7 +11,7 @@ module.exports = {
       if (!cookieRefreshToken) {
         return res
           .status(RESPONSE_STATUSES.UNAUTHORIZED)
-          .send({ message: 'User unauthorized' });
+          .send(ERROR_MESSAGE.USER_UNAUTHORIZED);
       }
 
       const foundUserToken = await Tokens.findOne(
@@ -19,7 +20,7 @@ module.exports = {
       if (!foundUserToken) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'Token not found' });
+          .send(ERROR_MESSAGE.TOKEN_NOT_FOUND);
       }
 
       const foundUser = await Users.findOne(
@@ -28,7 +29,7 @@ module.exports = {
       if (!foundUser) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'User not found' });
+          .send(ERROR_MESSAGE.USER_NOT_FOUND);
       }
 
       await Tokens.destroy(

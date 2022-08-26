@@ -1,6 +1,7 @@
 const { returnUserAndTokens } = require('./returnUserAndTokens');
 const { Users } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
+const { ERROR_MESSAGE } = require('../../errorMessages');
 
 module.exports = {
   async login(req, res) {
@@ -15,7 +16,7 @@ module.exports = {
       if (login.trim() === '' || password === '') {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'Missed data' });
+          .send(ERROR_MESSAGE.MISSED_DATA);
       }
 
       const foundUser = await Users.findOne(
@@ -25,13 +26,13 @@ module.exports = {
       if (!foundUser) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'User not found' });
+          .send(ERROR_MESSAGE.USER_NOT_FOUND);
       }
       const validPassword = await foundUser.comparePassword(password);
       if (!validPassword) {
         return res
           .status(RESPONSE_STATUSES.CONFLICT)
-          .send({ message: 'Invalid password' });
+          .send(ERROR_MESSAGE.INVALID_NOT_FOUND);
       }
 
       return await returnUserAndTokens(req, res, { user: foundUser });

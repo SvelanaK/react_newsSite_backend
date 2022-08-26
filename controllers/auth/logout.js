@@ -1,5 +1,6 @@
 const { Tokens } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
+const { ERROR_MESSAGE } = require('../../errorMessages');
 
 module.exports = {
   async logout(req, res) {
@@ -9,7 +10,7 @@ module.exports = {
       if (!cookieRefreshToken) {
         return res
           .status(RESPONSE_STATUSES.UNAUTHORIZED)
-          .send({ message: 'User unauthorized' });
+          .send(ERROR_MESSAGE.USER_UNAUTHORIZED);
       }
 
       await Tokens.destroy(

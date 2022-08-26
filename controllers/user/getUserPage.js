@@ -1,5 +1,6 @@
 const { News, Users } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
+const { ERROR_MESSAGE } = require('../../errorMessages');
 
 module.exports = {
   async getUserPage(req, res) {
@@ -9,7 +10,7 @@ module.exports = {
       if (!id) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'Id is missing or invalid' });
+          .send(ERROR_MESSAGE.INVALID_ID);
       }
 
       const foundUser = await Users.findOne({ where: { id } });
@@ -17,7 +18,7 @@ module.exports = {
       if (!foundUser) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'User not found' });
+          .send(ERROR_MESSAGE.USER_NOT_FOUND);
       }
 
       const usersNews = await News.findAll({ where: { userId: id } });

@@ -1,5 +1,6 @@
 const { News } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
+const { ERROR_MESSAGE } = require('../../errorMessages');
 
 module.exports = {
   async addNews(req, res) {
@@ -14,12 +15,6 @@ module.exports = {
         },
       } = req;
 
-      if (!id) {
-        return res
-          .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'User is not authorized' });
-      }
-
       const payload = {
         content: content.trim(),
         tag: tag.trim(),
@@ -32,7 +27,7 @@ module.exports = {
       || payload.title === '') {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send({ message: 'Missed data' });
+          .send(ERROR_MESSAGE.MISSED_DATA);
       }
 
       const newNews = await News.create({
