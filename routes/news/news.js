@@ -1,10 +1,13 @@
 const express = require('express');
+
 const {
   getAllNews,
-} = require('../../controllers/news/getAllNews');
+  addNews,
+} = require('../../controllers/news/index');
 
 const router = express.Router();
 
 router.get('/', getAllNews);
+router.post('/addNews', addNews);
 
 module.exports = router;

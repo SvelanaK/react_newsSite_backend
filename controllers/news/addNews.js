@@ -5,9 +5,10 @@ const { ERROR_MESSAGE } = require('../../errorMessages');
 module.exports = {
   async addNews(req, res) {
     try {
-      const { id } = req.user;
-
       const {
+        user: {
+          id,
+        },
         body: {
           content,
           tag,
@@ -21,10 +22,9 @@ module.exports = {
         title: title.trim(),
       };
 
-      if (
-        payload.content === ''
-      || payload.tag === ''
-      || payload.title === '') {
+      const validationText = (payload.content === '' || payload.tag === '' || payload.title === '');
+
+      if (validationText) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send(ERROR_MESSAGE.MISSED_DATA);
@@ -32,9 +32,9 @@ module.exports = {
 
       const newNews = await News.create({
         userId: id,
-        content,
-        tag,
-        title,
+        content: payload.content,
+        tag: payload.tag,
+        title: payload.title,
       });
 
       return res

@@ -26,12 +26,14 @@ module.exports = {
         password,
       };
 
-      if (
+      const validationForm = (
         payload.firstName === ''
       || payload.lastName === ''
       || payload.email === ''
       || payload.login === ''
-      || payload.password === '') {
+      || payload.password === '');
+
+      if (validationForm) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send(ERROR_MESSAGE.MISSED_DATA);

@@ -1,7 +1,7 @@
-const { getUserPage } = require('./getUserPage');
+const { getAllNews } = require('./getAllNews');
 const { addNews } = require('./addNews');
 
 module.exports = {
-  getUserPage,
+  getAllNews,
   addNews,
 };

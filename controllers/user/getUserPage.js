@@ -5,7 +5,7 @@ const { ERROR_MESSAGE } = require('../../errorMessages');
 module.exports = {
   async getUserPage(req, res) {
     try {
-      const { id } = req.params;
+      const { params: { id } } = req;
 
       if (!id) {
         return res
