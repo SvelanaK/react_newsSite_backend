@@ -16,11 +16,6 @@ module.exports = {
         },
       } = req;
 
-      if (!cookieRefreshToken) {
-        return res
-          .status(RESPONSE_STATUSES.UNAUTHORIZED)
-          .send(ERROR_MESSAGE.USER_UNAUTHORIZED);
-      }
       const foundUserToken = await Tokens.findOne(
         { where: { refreshToken: cookieRefreshToken } },
       );
@@ -35,18 +30,23 @@ module.exports = {
         content: content.trim(),
         tag: tag.trim(),
         title: title.trim(),
+        userId: foundUserToken.userId,
       };
 
-      const validationText = (payload.content === '' || payload.tag === '' || payload.title === '');
+      const missedData = (
+        payload.content === ''
+        || payload.tag === ''
+        || payload.title === ''
+      );
 
-      if (validationText) {
+      if (missedData) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send(ERROR_MESSAGE.MISSED_DATA);
       }
 
       const newNews = await News.create({
-        userId: foundUserToken.userId,
+        userId: payload.userId,
         content: payload.content,
         tag: payload.tag,
         title: payload.title,
