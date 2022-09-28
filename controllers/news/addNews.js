@@ -1,4 +1,4 @@
-const { News, Tokens } = require('../../models');
+const { News } = require('../../models');
 const { RESPONSE_STATUSES } = require('../../constants');
 const { ERROR_MESSAGE } = require('../../errorMessages');
 
@@ -6,8 +6,8 @@ module.exports = {
   async addNews(req, res) {
     try {
       const {
-        cookies: {
-          cookieRefreshToken,
+        user: {
+          id,
         },
         body: {
           content,
@@ -16,30 +16,18 @@ module.exports = {
         },
       } = req;
 
-      const foundUserToken = await Tokens.findOne(
-        { where: { refreshToken: cookieRefreshToken } },
-      );
-
-      if (!foundUserToken) {
-        return res
-          .status(RESPONSE_STATUSES.BAD_REQUEST)
-          .send(ERROR_MESSAGE.TOKEN_NOT_FOUND);
-      }
-
       const payload = {
         content: content.trim(),
         tag: tag.trim(),
         title: title.trim(),
-        userId: foundUserToken.userId,
+        userId: id,
       };
 
-      const missedData = (
-        payload.content === ''
-        || payload.tag === ''
-        || payload.title === ''
-      );
+      const missingData = payload.content === ''
+      || payload.tag === ''
+      || payload.title === '';
 
-      if (missedData) {
+      if (missingData) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send(ERROR_MESSAGE.MISSED_DATA);
