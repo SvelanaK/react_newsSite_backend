@@ -23,11 +23,11 @@ module.exports = {
         userId: id,
       };
 
-      const missingData = payload.content === ''
-      || payload.tag === ''
-      || payload.title === '';
+      const hasMissData = payload.content === ''
+        || payload.tag === ''
+        || payload.title === '';
 
-      if (missingData) {
+      if (hasMissData) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send(ERROR_MESSAGE.MISSED_DATA);

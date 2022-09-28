@@ -26,13 +26,13 @@ module.exports = {
         password,
       };
 
-      const missingData = payload.firstName === ''
-      || payload.lastName === ''
-      || payload.email === ''
-      || payload.login === ''
-      || payload.password === '';
+      const hasMissData = payload.firstName === ''
+        || payload.lastName === ''
+        || payload.email === ''
+        || payload.login === ''
+        || payload.password === '';
 
-      if (missingData) {
+      if (hasMissData) {
         return res
           .status(RESPONSE_STATUSES.BAD_REQUEST)
           .send(ERROR_MESSAGE.MISSED_DATA);
