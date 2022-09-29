@@ -33,12 +33,7 @@ module.exports = {
           .send(ERROR_MESSAGE.MISSED_DATA);
       }
 
-      const newNews = await News.create({
-        userId: payload.userId,
-        content: payload.content,
-        tag: payload.tag,
-        title: payload.title,
-      });
+      const newNews = await News.create(payload);
 
       return res
         .status(RESPONSE_STATUSES.CREATED)
