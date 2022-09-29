@@ -1,8 +1,8 @@
 const express = require('express');
-// const passport = require('passport');
+
 const {
   getUserPage,
-} = require('../../controllers/user/index');
+} = require('../../controllers/user/getUserPage');
 
 const router = express.Router();
 
