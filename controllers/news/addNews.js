@@ -9,6 +9,9 @@ module.exports = {
         user: {
           id,
         },
+        files: {
+          picture,
+        },
         body: {
           content,
           tag,
@@ -16,11 +19,14 @@ module.exports = {
         },
       } = req;
 
+      await picture.mv(`public/images/${picture.name}`);
+
       const payload = {
         content: content.trim(),
         tag: tag.trim(),
         title: title.trim(),
         userId: id,
+        picture: picture.name,
       };
 
       const hasMissData = payload.content === ''
