@@ -25,6 +25,7 @@ module.exports = {
       },
       picture: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         defaultValue: Sequelize.NOW,
