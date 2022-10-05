@@ -3,6 +3,7 @@ module.exports = {
     MISSED_DATA: 'Missed data',
     USER_NOT_FOUND: 'User not found',
     INVALID_NOT_FOUND: 'Invalid password',
+    NOT_FOUND: 'File not found',
     USER_UNAUTHORIZED: 'User unauthorized',
     TOKEN_NOT_FOUND: 'Token not found',
     USER_ALREADY_EXISTS: 'User already exists',
