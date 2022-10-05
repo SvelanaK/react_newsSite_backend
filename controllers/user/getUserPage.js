@@ -32,6 +32,7 @@ module.exports = {
             email: foundUser.email,
             firstName: foundUser.firstName,
             lastName: foundUser.lastName,
+            picture: foundUser.picture,
             registrationDate: foundUser.createdAt,
           },
           usersNews,

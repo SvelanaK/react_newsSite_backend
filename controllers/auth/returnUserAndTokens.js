@@ -26,6 +26,7 @@ module.exports = {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
+            picture: user.picture,
             registrationDate: user.createdAt,
           },
         });
