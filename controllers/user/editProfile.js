@@ -48,8 +48,10 @@ module.exports = {
       );
 
       const editUser = await Users.findOne(
-        { attributes: ['login', 'id', 'email', 'firstName', 'lastName', 'picture'] },
-        { where: { id: user.id } },
+        {
+          attributes: ['login', 'id', 'email', 'firstName', 'lastName', 'picture'],
+          where: { id: user.id },
+        },
       );
 
       return res
