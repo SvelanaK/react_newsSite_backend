@@ -1,5 +1,7 @@
 .history/
 
+public/
+
 .env
 
 node_modules/

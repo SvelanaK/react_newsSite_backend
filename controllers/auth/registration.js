@@ -21,7 +21,9 @@ module.exports = {
         },
       } = req;
 
-      await picture.mv(`public/images/${picture.name}`);
+      const date = Date.now();
+
+      await picture.mv(`public/images/${date}${picture.name}`);
 
       const payload = {
         firstName: firstName.trim(),
@@ -29,7 +31,7 @@ module.exports = {
         email: email.trim(),
         login: login.trim(),
         password,
-        picture: picture.name,
+        picture: `${date}${picture.name}`,
       };
 
       const hasMissData = payload.firstName === ''

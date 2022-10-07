@@ -1,7 +1,7 @@
-const { getUserPage } = require('./getUserPage');
+const { getProfile } = require('./getProfile');
 const { editProfile } = require('./editProfile');
 
 module.exports = {
-  getUserPage,
+  getProfile,
   editProfile,
 };
