@@ -9,6 +9,6 @@ const {
 const router = express.Router();
 
 router.get('/:id', getProfile);
-router.patch('/', passport.authenticate('jwt', { session: false }), editProfile);
+router.patch('/:id', passport.authenticate('jwt', { session: false }), editProfile);
 
 module.exports = router;

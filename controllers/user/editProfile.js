@@ -23,12 +23,15 @@ module.exports = {
 
       const payload = {};
 
-      if (login) {
-        payload.login = await login.trim();
+      const userLogin = login ? login.trim() : '';
+      const userEmail = email ? email.trim() : '';
+
+      if (userLogin !== '') {
+        payload.login = userLogin;
       }
 
-      if (email) {
-        payload.email = await email.trim();
+      if (userEmail !== '') {
+        payload.email = userEmail;
       }
 
       if (picture) {
