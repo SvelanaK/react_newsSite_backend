@@ -19,7 +19,7 @@ module.exports = {
       } = req;
 
       const date = Date.now();
-      const pictureName = `public/images/${date}${picture.name}`;
+      const pictureName = `images/${date}${picture.name}`;
 
       const payload = {};
 
@@ -33,8 +33,8 @@ module.exports = {
 
       if (picture) {
         try {
-          await unlink(user.picture);
-          await picture.mv(pictureName);
+          await unlink(`public/${user.picture}`);
+          await picture.mv(`public/${pictureName}`);
           payload.picture = pictureName;
         } catch (error) {
           return res

@@ -22,9 +22,9 @@ module.exports = {
       } = req;
 
       const date = Date.now();
-      const pictureName = `public/images/${date}${picture.name}`;
+      const pictureName = `images/${date}${picture.name}`;
 
-      await picture.mv(pictureName);
+      await picture.mv(`public/${pictureName}`);
 
       const payload = {
         firstName: firstName.trim(),
