@@ -19,6 +19,7 @@ module.exports = {
       } = req;
 
       const date = Date.now();
+      const pictureName = `public/images/${date}${picture.name}`;
 
       const payload = {};
 
@@ -32,9 +33,9 @@ module.exports = {
 
       if (picture) {
         try {
-          await unlink(`public/images/${user.picture}`);
-          await picture.mv(`public/images/${date}${picture.name}`);
-          payload.picture = `${date}${picture.name}`;
+          await unlink(user.picture);
+          await picture.mv(pictureName);
+          payload.picture = pictureName;
         } catch (error) {
           return res
             .status(RESPONSE_STATUSES.NOT_FOUND)
@@ -47,7 +48,7 @@ module.exports = {
         { where: { id: user.id } },
       );
 
-      const editUser = await Users.findOne(
+      const editedUser = await Users.findOne(
         {
           attributes: ['login', 'id', 'email', 'firstName', 'lastName', 'picture'],
           where: { id: user.id },
@@ -56,7 +57,7 @@ module.exports = {
 
       return res
         .status(RESPONSE_STATUSES.OK)
-        .send({ user: editUser });
+        .send({ user: editedUser });
     } catch (error) {
       return res
         .status(RESPONSE_STATUSES.INTERNAL_SERVER_ERROR)
