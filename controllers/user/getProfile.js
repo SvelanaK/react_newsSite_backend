@@ -3,7 +3,7 @@ const { RESPONSE_STATUSES } = require('../../constants');
 const { ERROR_MESSAGE } = require('../../errorMessages');
 
 module.exports = {
-  async getUserPage(req, res) {
+  async getProfile(req, res) {
     try {
       const { params: { id } } = req;
 
@@ -32,6 +32,7 @@ module.exports = {
             email: foundUser.email,
             firstName: foundUser.firstName,
             lastName: foundUser.lastName,
+            picture: foundUser.picture,
             registrationDate: foundUser.createdAt,
           },
           usersNews,
