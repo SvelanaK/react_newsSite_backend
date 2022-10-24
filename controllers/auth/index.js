@@ -3,6 +3,7 @@ const { login } = require('./login');
 const { logout } = require('./logout');
 const { refresh } = require('./refresh');
 const { whoAmI } = require('./whoAmI');
+const { googleAuth } = require('./googleAuth');
 
 module.exports = {
   registration,
@@ -10,4 +11,5 @@ module.exports = {
   logout,
   refresh,
   whoAmI,
+  googleAuth,
 };
